@@ -1,32 +1,35 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div>
+    <Header />
+    <transition name="slide-fade" mode="out-in">
+      <router-view :key="$route.fullPath" />
+    </transition>
+    <Feedback />
+    <Footer ref="footer" />
   </div>
 </template>
+<script>
+import Header from '@/components/Header'
+import Feedback from '@/components/Feedback'
+import Footer from '@/components/Footer'
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+export default {
+  components: {
+    Header,
+    Feedback,
+    Footer
+  }
 }
-
-#nav {
-  padding: 30px;
+</script>
+<style scoped>
+.slide-fade-enter-active {
+  transition: all .3s ease;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.slide-fade-leave-active {
+  transition: all .6s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.slide-fade-enter, .slide-fade-leave-active {
+  opacity: 0;
+  padding-left: 10px;
 }
 </style>
